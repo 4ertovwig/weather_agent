@@ -1,0 +1,88 @@
+﻿<Window x:Class="WeatherAgent_Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Name="MainWeather" WindowStartupLocation="Manual" Title="Погода в Москве" Height="195" Width="419" Background="Transparent" WindowStyle="None" AllowsTransparency="True">
+    <Window.Resources>
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Foreground" Value="Orange"/>
+            <Style.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard Storyboard.TargetProperty="Width">
+                                    <DoubleAnimation From="85" To="92" Duration="0:0:0:0.4" AutoReverse="True" RepeatBehavior="Forever"/>
+                                </Storyboard> 
+                            </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Height">
+                                <DoubleAnimation From="34" To="38" Duration="0:0:0:0.4" AutoReverse="True" RepeatBehavior="Forever"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                    </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Width">
+                                <DoubleAnimation From="92" To="85" Duration="0:0:0:0.6"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Height">
+                                <DoubleAnimation From="38" To="34" Duration="0:0:0:0.6"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03" Opacity="0.85">
+                                <GradientStop Color="DarkBlue" Offset="0"/>
+                                <GradientStop Color="#FFFFFFFF" Offset="0.757"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="DarkBlue">
+                    </Setter>
+                </Trigger> 
+            </Style.Triggers>
+        </Style>
+        
+    </Window.Resources>
+    <Border Height="Auto" Width="Auto">
+    <Grid Height="153" Width="364" >
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03" Opacity="0.85">
+                <GradientStop Color="DarkBlue" Offset="0"/>
+                <GradientStop Color="#FFFFFFFF" Offset="0.757"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <TextBlock FontSize="14" Foreground="Orange" Height="23" HorizontalAlignment="Left" Margin="9,7,0,0" Name="DateNow" Text="{Binding Time}" VerticalAlignment="Top" Width="158" />
+        <Image Source="{Binding PathImage}" Opacity="1" Height="136" HorizontalAlignment="Left" Margin="129,7,0,0" Name="TemperatureImage" Stretch="Fill" VerticalAlignment="Top" Width="150" />
+        <TextBlock Style="{StaticResource TextBlockStyle}" Height="23" HorizontalAlignment="Left" Margin="110,71,0,0" Name="temperature" Text="{Binding Temperature}" VerticalAlignment="Top" Width="151" />
+        <TextBlock Height="23" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Left" Margin="110,93,0,0" Name="pressure" Text="{Binding Pressure}" VerticalAlignment="Top" Width="126" />
+        <TextBlock Height="23" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Left" Margin="110,117,0,0" Name="wind" Text="{Binding WindSpeed}" VerticalAlignment="Top" Width="126" />
+        <TextBlock Height="44" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Left" Margin="110,29,0,0" Name="type" Text="{Binding TypeOfWeather}" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" />
+        <TextBlock Height="23" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Left" Margin="9,29,0,0" Name="textBlock1" Text="Погода" VerticalAlignment="Top"/>
+        <TextBlock Height="23" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Left" Margin="9,71,0,0" Name="textBlock2" Text="Температура" VerticalAlignment="Top"/>
+        <TextBlock Height="23" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Left" Margin="9,93,0,0" Name="textBlock3" Text="Давление" VerticalAlignment="Top"/>
+        <TextBlock Height="23" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Left" Margin="9,117,0,0" Name="textBlock4" Text="Ветер" VerticalAlignment="Top"/>
+        <TextBlock Style="{StaticResource TextBlockStyle}" Height="23" HorizontalAlignment="Left" Margin="137,71,0,0" Name="textBlock5" Text="С" VerticalAlignment="Top" />
+        <TextBlock Style="{StaticResource TextBlockStyle}" Height="23" HorizontalAlignment="Left" Margin="144,93,0,0" Name="textBlock6" Text="мм рт.ст." VerticalAlignment="Top" Width="78" />
+        <TextBlock Style="{StaticResource TextBlockStyle}" Height="23" HorizontalAlignment="Left" Margin="144,117,0,0" Name="textBlock7" Text="м/c" VerticalAlignment="Top" Width="44" />
+        
+        <Button Style="{StaticResource ButtonStyle}" Content="Подробнее" Height="34" HorizontalAlignment="Left" Margin="273,71,0,0" Name="InfoWeather" VerticalAlignment="Top" Width="85"/>
+            <Button Height="20" Background="DarkBlue" BorderBrush="Transparent" HorizontalAlignment="Left" Margin="333,4,0,0" Name="Close" VerticalAlignment="Top" Width="20" ToolTip="Закрыть">
+                <Image Source="Resources/close.jpg"/>
+        </Button>
+            <Button Content="О программе" Height="34" HorizontalAlignment="Left" Margin="273,109,0,0" Name="About" Style="{StaticResource ButtonStyle}" VerticalAlignment="Top" Width="85" />
+        </Grid>
+    </Border> 
+</Window>
